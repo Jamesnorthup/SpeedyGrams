@@ -4,6 +4,7 @@
 
 .app {
   background-color: #fafafa;
+ 
 
 }
 
@@ -12,5 +13,21 @@
   padding: 20px;
   border-bottom: 1px solid lightgray;
   object-fit: contain;
+  
 
+}
+.app_headerImage{
+  width: 11%;
+
+  height: auto;
+  vertical-align: middle;
+
+}
+
+.app_posts{
+  position: absolute;
+  left: 30%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
 }
