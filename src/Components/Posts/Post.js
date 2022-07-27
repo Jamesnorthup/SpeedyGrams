@@ -1,30 +1,32 @@
 import React from 'react'
 import './Post.css'
 // import Avatar from '@mui/material/Avatar';
-import Avatar from 'react-avatar';
+import UserAvatar from '../UserAvatar/UserAvatar'
 
 function Post({ creator, image, caption, comments }) {
     return (
         <div className="post">
             <div className="post_header">
 
-                <Avatar 
-                className="post_avatar" 
-                githubHandle={image}
-                src={image}
-                size={40} 
-                round="20px" 
-                />
+                {/* <Avatar
+                    className="post_avatar"
+                    githubHandle={image}
+                    src={image}
+                    size={40}
+                    round="20px"
+                /> */}
 
+                {
+                 <UserAvatar creator={creator} image={image}/>
+                }
                 <h3>{creator}</h3>
                 {/* header-> avatar +creator */}
             </div>
             <img
                 className="post_image"
-                // src="https://patterns.dev/img/reactjs/react-logo@3x.svg/"
                 src={image}
-
             />
+
             {/* image */}
 
             <h4
