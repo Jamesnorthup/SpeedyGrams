@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Container from "react-bootstrap/Container";
-import { Route, Redirect } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "../Components/HomePage";
 import Profile from "../Components/Profile";
 
@@ -21,12 +21,12 @@ function App() {
 
   return (
     <div className="app">
-      <header>
-        {/* Insert navbar componenet here */}
-      </header>
+      <header>{/* Insert navbar componenet here */}</header>
       <Container>
-        <Route path="/home" render={() => <HomePage />} />
-        <Route path="/profile" render={() => <Profile />} />
+        <Routes>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
       </Container>
     </div>
   );
