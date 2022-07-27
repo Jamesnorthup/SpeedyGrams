@@ -43,7 +43,7 @@ function App() {
           <Post username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
         ))
       }
-
+    
       {/* Posts */}
     </div>
   );

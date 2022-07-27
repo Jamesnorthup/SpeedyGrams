@@ -1,21 +1,17 @@
 import React from 'react'
 import './Post.css'
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
+import Avatar from 'react-avatar';
 
-function Post({username, caption, imageUrl}) {
+function Post({ username, caption, imageUrl }) {
     return (
         <div className="post">
-            <div
-
-                className="post_header">
+            <div className="post_header">
 
 
+                <Avatar className="post_avatar" githubHandle="sitebase" size={40} round="20px" />
 
-                <Avatar
-                    className="post_avatar"
-                    alt="James"
-                    src="/static/images/avatar/1.jpg"
-                />
+
 
                 <h3>{username}</h3>
                 {/* header-> avatar +username */}
@@ -28,7 +24,7 @@ function Post({username, caption, imageUrl}) {
             {/* image */}
 
             <h4
-                className="post_text"> 
+                className="post_text">
                 <strong>{username}</strong>
                 {caption}
             </h4>
