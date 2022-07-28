@@ -1,39 +1,47 @@
 import React from 'react'
 import './Post.css'
-// import Avatar from '@mui/material/Avatar';
 import Avatar from 'react-avatar';
+import Card from 'react-bootstrap/Card';
+import Comment from '../Comments/Comment';
 
-function Post({ creator, image, caption, comments }) {
+
+function Post(props) {
+    
+   console.log(props.comments)
     return (
+
         <div className="post">
-            <div className="post_header">
+            <Card style={{ width: '500px' }}>
+                <Card.Header style={{ width: '500px', padding: '10px' }}>
+                <Avatar className="post_avatar" githubHandle={props.image} name={props.creator} size={40} round="20px" />
+           
+                    <strong style={{textSizeAdjust:"auto"}}> {props.creator}</strong>
 
-                <Avatar 
-                className="post_avatar" 
-                githubHandle={image}
-                src={image}
-                size={40} 
-                round="20px" 
-                />
+                </Card.Header>
 
-                <h3>{creator}</h3>
-                {/* header-> avatar +creator */}
-            </div>
-            <img
-                className="post_image"
-                // src="https://patterns.dev/img/reactjs/react-logo@3x.svg/"
-                src={image}
 
-            />
-            {/* image */}
+                <Card.Img style={{ width: '500px' }} variant="top" src={props.image} />
+                <Card.Body>
 
-            <h4
-                className="post_text">
-                <strong>{creator}</strong>
-                {caption}
-            </h4>
+                    <Card.Text style={{ textAlign: "center"}}>
+                        {props.caption}
+                    </Card.Text>
+                    <Card.Footer>
+                   
+            {
+                props.comments.map(com => (
 
-            {/* creator + caption */}
+                    <Comment creator={com.creator} comment={com.comment} />
+                ))
+            }
+              
+
+                    </Card.Footer>
+                </Card.Body>
+            </Card>
+
+
+
         </div>
     )
 }
