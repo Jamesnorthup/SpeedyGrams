@@ -1,3 +1,5 @@
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,14 +9,11 @@ import Form from "react-bootstrap/Form";
 import Post from "./Posts/Post";
 
 const HomePage = () => {
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+
   const [allPosts, setAllPosts] = useState([]);
   const [inputShow, setInputShow] = useState(false);
-
-  const makeApiCall = async () => {
-    const res = await fetch("http://localhost:3000/posts");
-    const json = await res.json();
-    setAllPosts(json.posts);
-  };
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -41,6 +40,17 @@ const HomePage = () => {
   }
 
   useEffect(() => {
+    const makeApiCall = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/posts");
+        const json = await res.json();
+        if (json.posts) {
+          setAllPosts(json.posts)
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     makeApiCall();
   }, [])
 
@@ -82,6 +92,10 @@ const HomePage = () => {
             </Button>
         </div>
       )}
+      <button onClick={() => loginWithRedirect()}>Log In</button>;
+      <button onClick={() => logout({ returnTo: window.location.origin })}>
+      Log Out
+    </button>
     </Container>
   );
 };

@@ -24,7 +24,7 @@ function App() {
       <header>{/* Insert navbar componenet here */}</header>
       <Container>
         <Routes>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Container>

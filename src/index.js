@@ -5,13 +5,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./AppFolder/App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter as Router } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Auth0Provider
+      domain="dev-30atoxjp.us.auth0.com"
+      clientId="Ucl17JpvBjQQcbcmc9xeSLIK1fb67IIM"
+      redirectUri={window.location.origin}
+    >
     <Router>
       <App />
     </Router>
+    </Auth0Provider>
   </React.StrictMode>
 );
 
