@@ -4,6 +4,9 @@ import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../Components/HomePage";
 import Profile from "../Components/Profile";
+import Navigation from "../Components/Navigation";
+import NewPost from "../Components/NewPost";
+import OnePost from "../Components/OnePost";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -21,10 +24,15 @@ function App() {
 
   return (
     <div className="app">
-      <header>{/* Insert navbar componenet here */}</header>
+      <header>
+        <Navigation />
+      </header>
       <Container>
         <Routes>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />}>
+            <Route path=":id" element={<OnePost />} />
+          </Route>
+          <Route path="/new" element={<NewPost />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Container>
