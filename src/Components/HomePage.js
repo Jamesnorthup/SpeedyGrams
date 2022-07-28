@@ -1,101 +1,97 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
 import Post from "./Posts/Post";
 
 const HomePage = () => {
-  const { loginWithRedirect } = useAuth0();
-  const { logout } = useAuth0();
-
   const [allPosts, setAllPosts] = useState([]);
-  const [inputShow, setInputShow] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  let navigate = useNavigate();
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    setInputShow(true);
+  const getPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/posts");
+      const json = await res.json();
+      if (json.posts) {
+        setAllPosts(json.posts);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    fetch("http://localhost:3000/posts/new", {
+  const userExists = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/user/new", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            creator: "",//Input auth0 email here
-            image: e.target.image.value,
-            caption: e.target.caption.value,
-            comments: []
-        })
-    })
+          email: user.email,
+          username: user.username,
+          avatar: user.picture,
+          authId: user.user_id,
+          favorites: [],
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleClick = () => {
+    navigate("/new");
+  };
 
-    setInputShow(false);
+  if (isAuthenticated) {
+    userExists();
   }
-
-  useEffect(() => {
-    const makeApiCall = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/posts");
-        const json = await res.json();
-        if (json.posts) {
-          setAllPosts(json.posts)
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    makeApiCall();
-  }, [])
+  getPosts();
 
   return (
     <Container>
       <Row>
-        {allPosts &&
-          allPosts.map((post) => {
-            return (
-              <Col>
-                <Post
-                  creator={post.creator}
-                  image={post.image}
-                  caption={post.caption}
-                  comments={post.comments}
-                />
-              </Col>
-            );
-          })}
+        {isAuthenticated && (
+          <Col>
+            <h1>{user.username}</h1>
+            <Button onClick={handleClick}>New Post</Button>
+            <ListGroup>
+              <ListGroup.Item>
+                <Link to="/">Profile</Link>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Link to="/">My Posts</Link>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Link to="/">My favorites</Link>
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+        )}
+        <Col md={8} lg={8} xl={8}>
+          <Row>
+            {allPosts &&
+              allPosts.map((post) => {
+                return (
+                  <Col>
+                    <Post
+                      user={user}
+                      creator={post.creator}
+                      image={post.image}
+                      caption={post.caption}
+                      comments={post.comments}
+                    />
+                  </Col>
+                );
+              })}
+          </Row>
+        </Col>
       </Row>
-      <Button onClick={handleClick}>New Post</Button>
-      {inputShow && (
-        <div className="newPost">
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>Input image here</Form.Label>
-              <Form.Control name="image" type="file" />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Caption</Form.Label>
-              <Form.Control name="caption" as="textarea" rows={3} />
-            </Form.Group>
-          </Form>
-          <Button variant="primary" type="submit">
-            Submit
-            </Button>
-        </div>
-      )}
-      <button onClick={() => loginWithRedirect()}>Log In</button>;
-      <button onClick={() => logout({ returnTo: window.location.origin })}>
-      Log Out
-    </button>
     </Container>
   );
 };
