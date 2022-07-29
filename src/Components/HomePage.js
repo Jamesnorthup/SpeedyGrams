@@ -28,7 +28,7 @@ const HomePage = () => {
 
   const userExists = async () => {
     try {
-      const res = await fetch("http://localhost:4000/users/new", {
+      const res = await fetch("https://speedygram-js.herokuapp.com/users/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
