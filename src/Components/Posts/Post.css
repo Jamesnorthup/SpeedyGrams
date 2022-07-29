@@ -1,7 +1,7 @@
-.post {
-    /* background-color: white; */
+/* .post {
+    background-color: white;
     max-width: 600px;
-    /* border: 1px solid lightgray; */
+    border: 1px solid lightgray;
     margin-bottom: 45px;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -11,8 +11,8 @@
 .post_image {
     width: 100%;
     object-fit: contain;
-    /* border-top : 1px solid lightgray; */
-    /* border-bottom : 1px solid lightgray; */
+    border-top : 1px solid lightgray;
+    border-bottom : 1px solid lightgray;
 }
 
 .post_text {
@@ -37,4 +37,4 @@
     padding-left: 500px;
 
 
-}
+} */
