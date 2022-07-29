@@ -46,7 +46,9 @@ function Post(props) {
     const newComment = json.newComment;
     function doStuff() {
       const secondRes = fetch(
-        `http://localhost:4000/posts/${props.id}/addComment`,
+        // `http://localhost:4000/posts/${props.id}/addComment`,
+
+        `https://speedygram-js.herokuapp.com/posts/${props.id}/addComment`,
         {
           method: "PUT",
           headers: {

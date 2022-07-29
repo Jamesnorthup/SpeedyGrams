@@ -10,7 +10,9 @@ const Profile = () => {
   const [myPosts, setMyPosts] = useState();
 
   const makeApiCall = async () => {
-    const res = await fetch("http://localhost:4000/posts/myposts", {
+    // const res = await fetch("http://localhost:4000/posts/myposts", {
+
+      const res = await fetch("https://speedygram-js.herokuapp.com/posts/myposts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

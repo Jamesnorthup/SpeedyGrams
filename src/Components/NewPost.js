@@ -19,7 +19,9 @@ const NewPost = () => {
   };
 
   const handleSubmit = (e) => {
-    fetch("http://localhost:4000/posts/new", {
+    // fetch("http://localhost:4000/posts/new", {
+      fetch("https://speedygram-js.herokuapp.com/posts/new", {
+      
       method: "POST",
       headers: {
         "Content-Type": "application/json",

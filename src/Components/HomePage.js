@@ -16,7 +16,9 @@ const HomePage = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const res = await fetch("http://localhost:4000/posts");
+      // const res = await fetch("http://localhost:4000/posts");
+      const res = await fetch("https://speedygram-js.herokuapp.com/posts");
+      
       const json = await res.json();
       console.log("This is getposts");
       setAllPosts(json.posts);
