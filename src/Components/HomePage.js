@@ -38,7 +38,7 @@ const HomePage = () => {
         }),
       });
     } catch (error) {
-      console.error(error);
+
     }
   };
   const handleClick = () => {
@@ -60,12 +60,8 @@ const HomePage = () => {
               <ListGroup.Item>
                 <Link to="/">Profile</Link>
               </ListGroup.Item>
-              <ListGroup.Item>
-                <Link to="/">My Posts</Link>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Link to="/">My favorites</Link>
-              </ListGroup.Item>
+
+
             </ListGroup>
           </Col>
         )}
@@ -73,9 +69,11 @@ const HomePage = () => {
           <Row>
             {allPosts &&
               allPosts.map((post) => {
+
                 return (
                     <Col>
                       <Post
+                        id={post._id}
                         user={user}
                         creator={post.creator}
                         image={post.imageUrl}
