@@ -78,6 +78,7 @@ const HomePage = () => {
             {allPosts &&
               allPosts.map((post) => {
                 return (
+<<<<<<< Updated upstream
                   <div post_Container style={{padding:"300px"}}>
                   <Col >
                     <Post
@@ -89,6 +90,19 @@ const HomePage = () => {
                     />
                   </Col>
                   </div>
+=======
+                    <Col>
+                      <Post
+                      
+                        user={user}
+                    
+                        creator={post.creator}
+                        image={post.imageUrl}
+                        caption={post.caption}
+                        comments={post.comments}
+                      />
+                    </Col>
+>>>>>>> Stashed changes
                 );
               })}
           </Row>
