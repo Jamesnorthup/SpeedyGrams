@@ -31,21 +31,6 @@ function Comment(props) {
                </Card>
                 
         
-
-            {/* image */}
-
-            {/* <h4
-                className="comment_text">
-                <strong>{props.creator}</strong>
-
-                </h4>
-        
-          
-                <h4>  {props.comment}</h4> */}
-
-             
-
-            {/* creator + caption */}
         </div>
     )
 }

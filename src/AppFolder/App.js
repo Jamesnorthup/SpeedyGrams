@@ -33,18 +33,22 @@ function App() {
       <header>
         <Navigation />
       </header>
+   
       <Container>
+  
         <Routes>
           <Route path="/" element={<HomePage />}>
             <Route path=":id" element={<OnePost />} />
           </Route>
+     
           <Route path="/new" element={<NewPost />} />
+
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Container>
 
-      <div className="postsRender">
 
+ 
 
         {
           posts.map(post => (
@@ -52,7 +56,6 @@ function App() {
           ))
         }
 
-      </div>
     </div>
   );
 }
