@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
-.post {
-    /* background-color: white; */
-=======
  .post {
     background-color: white;
->>>>>>> Stashed changes
     max-width: 600px;
     /* border: 1px solid lightgray; */
     margin-bottom: 45px;
@@ -42,8 +37,4 @@
     padding-left: 500px;
 
 
-<<<<<<< Updated upstream
-}
-=======
 } 
->>>>>>> Stashed changes
