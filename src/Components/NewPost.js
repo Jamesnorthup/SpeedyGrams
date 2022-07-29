@@ -2,33 +2,42 @@ import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NewPost = () => {
-  const [caption, setCaption] = useState();
 
-  const handleChange = (e) => {
-    console.log(e.target.value);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const [caption, setCaption] = useState();
+  const [image, setImage] = useState();
+
+  const handleCaption = (e) => {
     setCaption(e.target.value);
+  };
+
+  const handleImage = (e) => {
+    setImage(e.target.value)
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/posts/new", {
+    fetch("http://localhost:4000/posts/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        creator: "", //Input auth0 email here
-        image: e.target.image.value,
+
+        creator: user.email,
+        imageUrl: image,
         caption: caption,
         comments: [],
       }),
     });
 
-    setCaption("");
   };
+
 
   return (
     <Container>
@@ -40,9 +49,20 @@ const NewPost = () => {
               name="caption"
               as="textarea"
               value={caption}
-              onChange={handleChange}
+              onChange={handleCaption}
               rows={3}
             />
+
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              name="image"
+              as="textarea"
+              value={image}
+              onChange={handleImage}
+              rows={4}
+            />
+
+   
           </Form.Group>
         </Form>
         <Button variant="primary" type="submit">

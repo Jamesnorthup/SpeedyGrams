@@ -78,7 +78,8 @@ const HomePage = () => {
             {allPosts &&
               allPosts.map((post) => {
                 return (
-                  <Col>
+                  <div post_Container style={{padding:"300px"}}>
+                  <Col >
                     <Post
                       user={user}
                       creator={post.creator}
@@ -87,6 +88,7 @@ const HomePage = () => {
                       comments={post.comments}
                     />
                   </Col>
+                  </div>
                 );
               })}
           </Row>
