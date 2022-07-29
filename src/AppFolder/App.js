@@ -50,6 +50,15 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Container>
+
+      {posts.map((post) => (
+        <Post
+          creator={post.creator}
+          caption={post.caption}
+          image={post.image}
+          comments={post.comments}
+        />
+      ))}
     </div>
   );
 }

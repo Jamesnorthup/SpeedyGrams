@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -14,26 +14,29 @@ const HomePage = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   let navigate = useNavigate();
 
-  useEffect(() => {
-    const getPosts = async () => {
+  const getPosts = async () => {
+    try {
       const res = await fetch("http://localhost:4000/posts");
       const json = await res.json();
-      console.log("This is getposts");
-      setAllPosts(json.posts);
-    };
-    getPosts();
-  }, []);
-
+      if (json.posts) {
+        setAllPosts(json.posts);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const userExists = async () => {
     try {
-      const res = await fetch("http://localhost:4000/users/new", {
+      const res = await fetch("http://localhost:4000/user/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: user.email,
-          username: user.nickname,
+          username: user.username,
+          avatar: user.picture,
+          authId: user.user_id,
           favorites: [],
         }),
       });
@@ -48,6 +51,7 @@ const HomePage = () => {
   if (isAuthenticated) {
     userExists();
   }
+  getPosts();
 
   return (
     <Container>
@@ -74,15 +78,17 @@ const HomePage = () => {
             {allPosts &&
               allPosts.map((post) => {
                 return (
-                    <Col>
-                      <Post
-                        user={user}
-                        creator={post.creator}
-                        image={post.imageUrl}
-                        caption={post.caption}
-                        comments={post.comments}
-                      />
-                    </Col>
+        
+                  <Col >
+                    <Post
+                      user={user}
+                      creator={post.creator}
+                      image={post.image}
+                      caption={post.caption}
+                      comments={post.comments}
+                    />
+                  </Col>
+                
                 );
               })}
           </Row>
