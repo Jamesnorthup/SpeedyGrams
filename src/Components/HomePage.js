@@ -72,7 +72,7 @@ const HomePage = () => {
                 return (
                     <Col>
                       <Post
-                        id={post.id}
+                        id={post._id}
                         user={user}
                         creator={post.creator}
                         image={post.imageUrl}
