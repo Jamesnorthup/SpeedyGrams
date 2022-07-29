@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const NewPost = () => {
-
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const [caption, setCaption] = useState();
@@ -16,28 +15,23 @@ const NewPost = () => {
   };
 
   const handleImage = (e) => {
-    setImage(e.target.value)
+    setImage(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
     fetch("http://localhost:4000/posts/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-
         creator: user.email,
         imageUrl: image,
         caption: caption,
         comments: [],
       }),
     });
-
   };
-
 
   return (
     <Container>
@@ -61,13 +55,11 @@ const NewPost = () => {
               onChange={handleImage}
               rows={4}
             />
-
-   
           </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
         </Form>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </div>
     </Container>
   );
