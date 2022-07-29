@@ -1,11 +1,9 @@
  .post {
-    background-color: white;
     max-width: 600px;
     /* border: 1px solid lightgray; */
     margin-bottom: 45px;
     padding-top: 100px;
     padding-bottom: 1px;
-
 } 
 
 .post_image {
@@ -31,7 +29,7 @@
 }
 
 .post_Container{
-    padding-top: 50px;
+    padding-top: 20px;
     padding-right: 30px;
     padding-bottom: 50px;
     padding-left: 500px;

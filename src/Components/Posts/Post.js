@@ -1,54 +1,114 @@
+import React from "react";
+import "./Post.css";
+import Avatar from "react-avatar";
+import Card from "react-bootstrap/Card";
+import Comment from "../Comments/Comment";
+import { BiCommentAdd } from "react-icons/bi";
+import { useAuth0 } from "@auth0/auth0-react";
+import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form";
+import { useState } from "react";
 
-import React from 'react'
-import './Post.css'
-import Avatar from 'react-avatar';
-import Card from 'react-bootstrap/Card';
-import Comment from '../Comments/Comment';
-import { BiCommentAdd} from "react-icons/bi";
+import ReactDom from "react-dom";
+import Popup from "react-popup";
 
+import Button from "react-bootstrap/Button";
 
 function Post(props) {
-    console.log(props.id)
-    return (
+  const { user } = useAuth0();
 
-   
-  
-            <div className="post">
-                <Card style={{ width: '500px' }}>
-                    <Card.Header style={{ width: '500px', padding: '10px' }}>
-                        <Avatar className="post_avatar" githubHandle={props.image} name={props.creator} size={40} round="20px" />
+  const [commentState, setCommentState] = useState();
+  const handleComment = (e) => {
+    console.log(commentState);
+    setCommentState(e.target.value);
+  };
 
-                        <strong style={{ textSizeAdjust: "auto" }}> {props.creator}</strong>
+  const PostCommentEvent = async () => {
+    console.log("1");
 
-                    </Card.Header>
+    // const postComment = async () => {
+    //   console.log("2");
 
-                    <Card.Img style={{ width: '500px' }} variant="top" src={props.image} />
-                    <Card.Body>
+    const res = await fetch("http://localhost:4000/comments/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        creator: user.email,
+        comment: commentState,
+      }),
+    })
 
-                        <Card.Text style={{ textAlign: "center" }}>
-                            {props.caption}
-                        </Card.Text>
-                        <Card.Footer>
+    console.log("3");
+    const json = res.json();
+    console.log("4");
+    const newComment = json.newComment;
+    function doStuff() {
+      const secondRes = fetch(
+        `http://localhost:4000/posts/${props.id}/addComment`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            commentId: json.newComment._id,
+          }),
+        }
+      );
+    }
+    // };
+    // postComment();
+  };
 
-                            {
-                                props.comments.map(com => (
+  return (
+    <div className="post">
+      <Card style={{ width: "500px" }}>
+        <Card.Header style={{ width: "500px", padding: "10px" }}>
+          <Avatar
+            className="post_avatar"
+            githubHandle={props.image}
+            name={props.creator}
+            size={40}
+            round="20px"
+          />
 
-                                    <Comment creator={com.creator} comment={com.comment} />
-                                ))
-                            }
-                                <BiCommentAdd />
+          <strong style={{ textSizeAdjust: "auto" }}> {props.creator}</strong>
+        </Card.Header>
 
-                        </Card.Footer>
-                    
-                    </Card.Body>
-                </Card>
+        <Card.Img style={{ width: "500px" }} variant="top" src={props.image} />
+        <Card.Body>
+          <Card.Text style={{ textAlign: "center" }}>{props.caption}</Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          {props.comments.map((com) => (
+            <Comment creator={com.creator} comment={com.comment} />
+          ))}
 
-
-
-         
-
-        </div>
-    )
+          {/* <InputGroup.Text id="basic-addon1" style={{width:"500px",color:"white"}}><BiCommentAdd/></InputGroup.Text> */}
+          <Form onSubmit={PostCommentEvent} style={{ padding: 10 }}>
+            <Form.Group>
+              <Form.Control
+                value={commentState}
+                type="text"
+                placeholder="Comment"
+                onChange={handleComment}
+              />
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ width: "50px", opacity: "70%" }}
+            >
+              {" "}
+              <BiCommentAdd />
+            </Button>
+          </Form>
+        </Card.Footer>
+      </Card>
+    </div>
+  );
 }
 
-export default Post
+export default Post;

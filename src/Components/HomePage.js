@@ -69,6 +69,7 @@ const HomePage = () => {
           <Row>
             {allPosts &&
               allPosts.map((post) => {
+
                 return (
                     <Col>
                       <Post
