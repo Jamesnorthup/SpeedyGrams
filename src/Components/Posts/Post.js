@@ -29,7 +29,8 @@ function Post(props) {
     // const postComment = async () => {
     //   console.log("2");
 
-    const res = await fetch("http://localhost:4000/comments/new", {
+//     const res = await fetch("http://localhost:4000/comments/new", {
+    const res = await fetch(https://speedygram-js.herokuapp.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
